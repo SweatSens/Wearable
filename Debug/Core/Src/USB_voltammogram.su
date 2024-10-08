@@ -1,0 +1,2 @@
+../Core/Src/USB_voltammogram.c:11:7:USB_get_num	24	static
+../Core/Src/USB_voltammogram.c:31:6:USB_get_voltammogram	32	static

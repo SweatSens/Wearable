@@ -1,0 +1,5 @@
+../Core/Src/algorithms.c:11:6:baseline_correction	64	dynamic
+../Core/Src/algorithms.c:46:6:window	32	static
+../Core/Src/algorithms.c:58:6:get_peak	24	static
+../Core/Src/algorithms.c:72:21:gaussian_fit	2656	static
+../Core/Src/algorithms.c:140:21:subGaus	2440	static

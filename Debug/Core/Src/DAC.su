@@ -1,0 +1,2 @@
+../Core/Src/DAC.c:11:6:write_DAC	24	static
+../Core/Src/DAC.c:22:6:DAC_set	24	static
