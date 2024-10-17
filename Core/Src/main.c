@@ -154,6 +154,7 @@ int main(void)
     /* USER CODE BEGIN 3 */
 
 	  if(sec_flag == 1){
+		  HAL_GPIO_TogglePin(GPIOA, LED_Pin);
 
 		  // get temperature
 		  I2C_tx_data[0] = 0x01;
@@ -229,10 +230,22 @@ int main(void)
 				  CDC_Transmit_FS((uint8_t*)"Update voltammogram? Press: yes (y) or no (n).\n\n", 48);
 				  HAL_Delay(100);
 				  while(USB_buffer[0] == 82);
-				  if(USB_buffer[0] == 121){\
+				  if(USB_buffer[0] == 121){
+					  memset(USB_buffer,'0',3000);
+					  USB_buffer[0] = 82;
 					  // for U and I
-					  //USB_get_voltammogram();
-					  //USB_get_voltammogram();
+					  CDC_Transmit_FS((uint8_t*)"Upload potential voltammogram.\n\n", 32);
+					  HAL_Delay(100);
+					  while(USB_buffer[0] == 82);
+					  USB_get_voltammogram(potential,0);
+					  memset(USB_buffer,'0',3000);
+					  USB_buffer[0] = 82;
+					  CDC_Transmit_FS((uint8_t*)"Upload current voltammogram.\n\n", 30);
+					  HAL_Delay(100);
+					  while(USB_buffer[0] == 82);
+					  USB_get_voltammogram(current,0);
+					  memset(USB_buffer,'0',3000);
+					  USB_buffer[0] = 82;
 				  }
 				  memset(USB_buffer,'0',3000);
 				  USB_buffer[0] = 82;
@@ -254,11 +267,10 @@ int main(void)
 		  }
 
 		if(cntr == 0){
-			HAL_GPIO_TogglePin(GPIOA, LED_Pin);
 			CDC_Transmit_FS((uint8_t*)"START MEASUREMENT!\n\n", 20);
 			HAL_Delay(10);
 			if(use_measurement == 1){
-				//execute_SWV(swv1);
+				execute_SWV(swv1);
 			}
 			if(run_algorithms == 1){
 				struct voltammogram nv1 = v1;

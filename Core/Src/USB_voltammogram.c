@@ -28,12 +28,13 @@ float USB_get_num(void){
 	  return val;
 }
 
-void USB_get_voltammogram(void){
+uint32_t USB_get_voltammogram(uint8_t UI, uint32_t cntr){
 
-	  if(USB_buffer[0] != 82){
+	uint32_t float_cntr = cntr;
+
+	 if(USB_buffer[0] != 82){
 		  uint32_t i=0;
 		  uint8_t while_end = 0;
-		  uint32_t float_cntr = 0;
 		  memset(buf_float,0,300);
 		  uint8_t num_flag = 0;
 		  uint32_t old_i = 0;
@@ -59,6 +60,12 @@ void USB_get_voltammogram(void){
 		  memset(USB_buffer,'0',3000);
 		  USB_buffer[0] = 82;
 	  }
+	  if(UI == potential){
+		  memcpy(v1.U,buf_float,300);
+	  }
+	  if(UI == current){
+		  memcpy(v1.I,buf_float,300);
+	  }
 
-	  return;
+	  return float_cntr;
 }
